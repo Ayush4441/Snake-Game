@@ -1,61 +1,84 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scripts/Player/Movement/PlayerMovement.cs" type="Script" id=1]
-[ext_resource path="res://Scripts/Player/Interaction/Item.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=3]
+[ext_resource path="res://Sprites/Game Sprites/Snake.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Game Sprites/apple.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Game Sprites/grass.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/SnakeController.cs" type="Script" id=4]
 
-[sub_resource type="RectangleShape2D" id=4]
-
-[sub_resource type="ImageTexture" id=5]
-flags = 23
-flags = 23
-size = Vector2( 20, 20 )
-
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 15, 15 )
-
-[sub_resource type="ImageTexture" id=2]
-flags = 23
-flags = 23
-size = Vector2( 60, 60 )
+[sub_resource type="TileSet" id=1]
+0/name = "Snake.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 320, 80 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 40, 40 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "apple.png 1"
+1/texture = ExtResource( 2 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 40, 40 )
+1/tile_mode = 2
+1/autotile/icon_coordinate = Vector2( 0, 0 )
+1/autotile/tile_size = Vector2( 40, 40 )
+1/autotile/spacing = 0
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
 
 [node name="Test Scene" type="Node2D"]
 
+[node name="Snake Controller" type="Node2D" parent="."]
+script = ExtResource( 4 )
+ResolutionX = 20
+ResolutionY = 20
+SnakeFaceTowards = 2
+SnakeStartPos = Vector2( 10, 10 )
+
+[node name="BackGround" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 800.0
+margin_bottom = 800.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 2
+
 [node name="TileMap" type="TileMap" parent="."]
+position = Vector2( 0, 1 )
+tile_set = SubResource( 1 )
+cell_size = Vector2( 40, 40 )
 format = 1
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
 
-[node name="Item" type="Area2D" parent="."]
-position = Vector2( 250, 250 )
-script = ExtResource( 2 )
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
 
-[node name="Collider" type="CollisionShape2D" parent="Item"]
-shape = SubResource( 4 )
-
-[node name="Sprite" type="Sprite" parent="Item"]
-texture = SubResource( 5 )
-
-[node name="Player" type="Area2D" parent="."]
-script = ExtResource( 3 )
-
-[node name="Player Movement" type="Node2D" parent="Player"]
-script = ExtResource( 1 )
-
-[node name="Interactor" type="Node2D" parent="Player"]
-
-[node name="Head" type="CollisionShape2D" parent="Player"]
-shape = SubResource( 6 )
-
-[node name="Sprite" type="Sprite" parent="Player/Head"]
-self_modulate = Color( 0, 0, 0, 1 )
-scale = Vector2( 0.5, 0.5 )
-texture = SubResource( 2 )
-
-[node name="Tail" type="CollisionShape2D" parent="Player"]
-shape = SubResource( 6 )
-
-[node name="Sprite" type="Sprite" parent="Player/Tail"]
-self_modulate = Color( 0, 0, 0, 1 )
-scale = Vector2( 0.5, 0.5 )
-texture = SubResource( 2 )
+[connection signal="timeout" from="Timer" to="Snake Controller" method="_on_Timer_timeout"]

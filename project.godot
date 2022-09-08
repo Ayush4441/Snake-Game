@@ -12,7 +12,12 @@ config_version=4
 
 config/name="Snake Game"
 run/main_scene="res://Sences/Test Scene.tscn"
-config/icon="res://Sprites/Icon/icon.png"
+config/icon="res://Sprites/UI/Icon/icon.png"
+
+[display]
+
+window/size/width=800
+window/size/height=800
 
 [gui]
 
