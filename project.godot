@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Snake Game"
-run/main_scene="res://Sences/Test Scene.tscn"
+run/main_scene="res://Sences/Main Menu.tscn"
 config/icon="res://Sprites/UI/Icon/icon.png"
 
 [display]

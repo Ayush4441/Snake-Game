@@ -78,7 +78,7 @@ anchor_mode = 0
 current = true
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.15
 autostart = true
 
 [connection signal="timeout" from="Timer" to="Snake Controller" method="_on_Timer_timeout"]
